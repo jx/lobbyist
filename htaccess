@@ -1,0 +1,30 @@
+# Lobby Visitor Notification App – Apache config
+
+# Deny direct access to sensitive files
+<FilesMatch "\.(sqlite|php)$">
+    <RequireAll>
+        Require all denied
+    </RequireAll>
+</FilesMatch>
+
+# But allow the actual PHP entry points
+<FilesMatch "^(index|alter|send_notification)\.php$">
+    Require all granted
+</FilesMatch>
+
+# Block directory listing
+Options -Indexes
+
+# Protect db and config from direct download
+<Files "lobby.sqlite">
+    Require all denied
+</Files>
+<Files "config.php">
+    Require all denied
+</Files>
+<Files "db.php">
+    Require all denied
+</Files>
+<Files "notify.php">
+    Require all denied
+</Files>
